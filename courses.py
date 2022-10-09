@@ -93,12 +93,6 @@ def course_list():
     return db.execute("SELECT K.nimi, COUNT(DISTINCT KO.opettaja_id), COUNT(DISTINCT S.op_id) FROM KurssinOpettajat KO, Kurssit K LEFT JOIN Suoritukset S ON K.id = S.kurssi_id WHERE K.id = KO.kurssi_id GROUP BY K.nimi").fetchall()
 
 
-
-# hakee listan opettajista (aakkosjärjestyksessä)
-def teacher_list():
-    pass
-    #return db.execute("SELECT H.nimi, K.nimi FROM Henkilot H, Kurssit K, KurssinOpettajat KO WHERE is_staff = 1 AND GROUP BY H.nimi ORDER BY 1").fetchall()
-
 # hakee ryhmässä olevat henkilöt (aakkosjärjestyksessä)
 def group_people(group_name):
     people = db.execute("SELECT H.nimi FROM Henkilot H, Ryhmat R, RyhmanJasenet RJ WHERE R.nimi=? AND R.id = RJ.ryhma_id AND H.id = RJ.henkilo_id ORDER BY 1", [group_name]).fetchall()
